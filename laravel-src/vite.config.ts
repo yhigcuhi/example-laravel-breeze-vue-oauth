@@ -6,7 +6,11 @@ export default defineConfig({
     plugins: [
         laravel({
             // bladeに記述する @vite(['resources/css/app.css', 'resources/js/app.ts']) ようっぽい
-            input: ['resources/css/app.css', 'resources/js/app.ts'],
+            input: [
+                'resources/css/app.css',
+                'resources/assets/sass/now-ui-dashboard.scss',
+                'resources/js/app.ts'
+            ],
             refresh: true,
         }),
         vue({

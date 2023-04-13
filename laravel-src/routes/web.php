@@ -28,3 +28,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/signin', function () {
+    return Inertia::render('Auth/SignIn');
+});

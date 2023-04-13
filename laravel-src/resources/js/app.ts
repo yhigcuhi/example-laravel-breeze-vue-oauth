@@ -1,5 +1,12 @@
+/***********************************
+ * エントリーポイント
+ ***********************************/
+/* 静的資材の読み込みなど */
 import './bootstrap';
-import '../css/app.css';
+import '../css/app.css'; // laravel viteのデフォ デザイン
+import 'bootstrap/scss/bootstrap.scss'; // bootstrap利用
+import '../assets/css/demo.css'; // メインデザイン
+import '../assets/sass/now-ui-dashboard.scss'; // scss
 
 import { createApp, h, DefineComponent } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
