@@ -10,3 +10,6 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         user: User;
     };
 };
+
+// 独自定義 export
+export * from './style';

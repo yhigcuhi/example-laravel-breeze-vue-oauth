@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
@@ -9,7 +10,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/assets/sass/now-ui-dashboard.scss',
-                'resources/js/app.ts'
+                'resources/js/app.ts',
             ],
             refresh: true,
         }),
@@ -31,6 +32,8 @@ export default defineConfig({
                 },
             },
         }),
+        // @assetsようのtsconfigのpathsで設定したエイリアスを取り扱えるようにする
+        tsconfigPaths(),
     ],
     // 謎エラー対策
     resolve: {

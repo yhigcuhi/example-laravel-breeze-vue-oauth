@@ -29,6 +29,10 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/signin', function () {
-    return Inertia::render('Auth/SignIn');
+// ログイン前 の画面定義
+Route::middleware('guest')->group(function () {
+    // ログイン画面
+    Route::get('/login', function () {
+        return Inertia::render('auth/login/Login');
+    });
 });

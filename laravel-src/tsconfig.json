@@ -16,7 +16,8 @@
         "skipLibCheck": true,
         "baseUrl": ".",
         "paths": {
-            "@/*": ["resources/js/*"]
+            "@/*": ["resources/js/*"],
+            "@assets/*": ["resources/assets/*"]
         },
         "typeRoots": ["./resources/js/@types"]
     },

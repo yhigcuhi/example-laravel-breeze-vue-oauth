@@ -1,6 +1,8 @@
 <script setup lang="ts">
-/* import parts*/
 /* import 画像*/
+import backgroundImg from '@assets/img/bg13.jpg';
+/* import parts*/
+import AuthLayoutFooter from './AuthLayoutFooter.vue';
 </script>
 <template>
     <!-- wrapper -->
@@ -10,14 +12,15 @@
             <!-- メインコンテンツ -->
             <div class="content">
                 <div class="container">
+                    <slot name="header"/>
                     <!-- 各画面 -->
-                    <slot/>
+                    <slot name="default"/>
                 </div>
             </div>
             <!-- フッター -->
-<!--            <Footer />-->
+            <AuthLayoutFooter />
             <!-- 背景画像フルスクリーン用 -->
-            <div class="full-page-background" :style="{'background': 'linear-gradient(0deg,rgba(44,44,44,.2),rgba(224,23,3,.6))'}" />
+            <div class="full-page-background" :style="{'background-image': `url(${backgroundImg})`}" />
         </div>
     </div>
 </template>
