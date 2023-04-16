@@ -2,7 +2,9 @@
 /* import pinia*/
 import {createPinia} from 'pinia';
 import { createPersistedState } from 'pinia-plugin-persistedstate'; // 追加
-//
+/* import 共通ストア モジュール*/
+import {useSideBar} from './modules/sidebar';
+import {useHeaderTitle} from './modules/header-title';
 
 // 利用する pinia
 const store = createPinia();
@@ -14,8 +16,9 @@ store.use(createPersistedState({
 
 // export
 export default store;
-// export TODO:共通ストア
-// export {
-//     useTODO共通系
-// }
+// export 共通ストア
+export {
+    useSideBar, // サイドバー開閉管理
+    useHeaderTitle, // 画面表示ヘッダータイトル管理
+}
 

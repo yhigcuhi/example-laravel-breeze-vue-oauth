@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\GoogleOAuthController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -45,7 +46,14 @@ Route::middleware('guest')->group(function () {
         Route::get('/auth/callback', [GoogleOAuthController::class, 'callback'])->name('callback');
     });
 });
-// ログイン後 の画面定義
+// ログイン直後 の画面定義
 Route::middleware(['auth', 'verified'])->group(function () {
+    // ダッシュボード
     Route::get('/dashboard', function () { return Inertia::render('authed/dashboard/Dashboard');})->name('dashboard');
+});
+
+// ログイン済み の画面定義
+Route::middleware('auth')->group(function () {
+    // ログアウト
+    Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
