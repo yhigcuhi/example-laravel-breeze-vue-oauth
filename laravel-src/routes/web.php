@@ -31,12 +31,11 @@ use Inertia\Inertia;
 //    ]);
 //});
 
+// ログイン画面
+Route::get('/', function () {return Inertia::render('auth/login/Login');})->name('login');
+
 // ログイン前 の画面定義
 Route::middleware('guest')->group(function () {
-    // ログイン画面
-    Route::get('/', function () {
-        return Inertia::render('auth/login/Login');
-    });
     // Google OAuth 関連
     Route::group(['prefix' => '/google', 'as' => 'google.'], function() {
         // Google OAuthの画面呼び出し
@@ -49,7 +48,7 @@ Route::middleware('guest')->group(function () {
 // ログイン直後 の画面定義
 Route::middleware(['auth', 'verified'])->group(function () {
     // ダッシュボード
-    Route::get('/dashboard', function () { return Inertia::render('authed/dashboard/Dashboard');})->name('dashboard');
+    Route::get('/home', function () { return Inertia::render('authed/dashboard/Dashboard');})->name('dashboard');
 });
 
 // ログイン済み の画面定義

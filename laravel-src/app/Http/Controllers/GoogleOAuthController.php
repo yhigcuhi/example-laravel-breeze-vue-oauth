@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\AuthenticationService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\UnauthorizedException;
 use Laravel\Socialite\Facades\Socialite;
 
 /**
@@ -13,6 +15,18 @@ use Laravel\Socialite\Facades\Socialite;
  */
 class GoogleOAuthController extends Controller
 {
+    // サービス
+    private AuthenticationService $service;
+
+    /**
+     * @param AuthenticationService $service
+     */
+    public function __construct(AuthenticationService $service)
+    {
+        $this->service = $service;
+    }
+
+
     /**
      * Socialiteによる Google OAuthの認証画面 表示
      * @return \Illuminate\Http\RedirectResponse|Response|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -25,17 +39,23 @@ class GoogleOAuthController extends Controller
      * Google OAuthのログイン 認証成功 ハンドリング
      * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function callback()
+    public function callback(Request $request)
     {
-        // Socialiteによる Google OAuthの結果解析 (ユーザー情報取得)
-        $googleUser = Socialite::driver('google')->stateless()->user();
-        // Google 認証でのメアドの人
-        $user = User::where(['email' => $googleUser->email])->first();
-        // 見つからない => 401
-        if (is_null($user)) return redirect(route('login'), 401);
-        // 認証
-        Auth::login($user, true);
-        // 認証後の画面へ
-        return redirect(route('dashboard'));
+        try {
+            // ログアウト
+            $this->service->logout($request);
+
+            // Socialiteによる Google OAuthの結果解析 (ユーザー情報取得)
+            $googleUser = Socialite::driver('google')->stateless()->user();
+            // ログイン実行
+            $this->service->loginByEmail($googleUser->email);
+            // 認証後の画面へ
+            return redirect(route('dashboard'));
+        } catch (UnauthorizedException $e) {
+            // ログアウト
+            $this->service->logout($request);
+            // 認証できない => 401へ
+            return redirect(route('login'), 401);
+        }
     }
 }

@@ -2,12 +2,12 @@
 /* import inertia*/
 import {Link} from '@inertiajs/vue3';
 /* import parts*/
-import {NavbarToggleButton} from '@/components/elements';
+import {NavbarToggleButton, LogoutLink} from '@/components/elements';
 /* import store*/
 import {useSideBar, useHeaderTitle} from '@/store';
 
 // スライドバーの開閉管理
-const slideBar = useSideBar();
+const {isShow, onClickToggle} = useSideBar();
 const {title} = useHeaderTitle();
 </script>
 <template>
@@ -18,9 +18,9 @@ const {title} = useHeaderTitle();
             <!-- ナビゲーションの描画 (タイトルなど) -->
             <div class="navbar-wrapper">
                 <!-- サイドメニュー トグル -->
-                <div class="navbar-toggle" :class="{ toggled: slideBar.isShow }">
-                    <navbar-toggle-button @click.native="slideBar.onClickToggle">
-                    </navbar-toggle-button>
+                <div class="navbar-toggle" :class="{ toggled: isShow }">
+                    <NavbarToggleButton @click.native="onClickToggle">
+                    </NavbarToggleButton>
                 </div>
                 <!-- 画面名 -->
                 <span class="navbar-brand">{{ title }}</span>
@@ -28,7 +28,7 @@ const {title} = useHeaderTitle();
             </div>
             <!-- ナビゲーション メニュー（右メニュー）の描画 -->
             <div class="d-flex justify-content-end">
-                <Link class="text-dark" :href="route('logout')">ログアウト TODO:色</Link>
+                <LogoutLink class="me-4"/>
             </div>
         </div>
     </nav>

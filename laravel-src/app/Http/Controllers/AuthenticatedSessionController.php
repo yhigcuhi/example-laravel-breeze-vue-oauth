@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AuthenticationService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,18 +12,25 @@ use Illuminate\Support\Facades\Auth;
  */
 class AuthenticatedSessionController extends Controller
 {
+    // サービス
+    private AuthenticationService $service;
+
+    /**
+     * @param AuthenticationService $service
+     */
+    public function __construct(AuthenticationService $service)
+    {
+        $this->service = $service;
+    }
 
     /**
      * ログアウト処理
      */
     public function destroy(Request $request): RedirectResponse
     {
-        // 認証状態 削除
-        Auth::guard('web')->logout();
-        // セッションクリア
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        // ログアウト
+        $this->service->logout($request);
         // TOPへ
-        return redirect('/');
+        return redirect(route(  'login'));
     }
 }
