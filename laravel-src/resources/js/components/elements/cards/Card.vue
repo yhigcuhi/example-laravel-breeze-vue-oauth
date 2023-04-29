@@ -1,14 +1,14 @@
 <script setup lang="ts">
 // creative-tim NOW UI kitでのCard
 type Props = {
-    title: string // タイトル
-    subTitle: string // サブタイトル
-    category: string // カテゴリ
-    description: string // 説明文
-    noFooterLine: boolean // フッターとの境界線 不要 (true:不要)
-    plain: boolean // plainデザイン適用 (true:適用)
-    cardBodyClasses: string | string[] | Record<string, string> | Record<string, boolean> // デザイン
-    headerClasses: string | string[] | Record<string, string> | Record<string, boolean> // デザイン
+    title?: string // タイトル
+    subTitle?: string // サブタイトル
+    category?: string // カテゴリ
+    description?: string // 説明文
+    noFooterLine?: boolean // フッターとの境界線 不要 (true:不要)
+    plain?: boolean // plainデザイン適用 (true:適用)
+    cardBodyClasses?: string | string[] | Record<string, string> | Record<string, boolean> // デザイン
+    headerClasses?: string | string[] | Record<string, string> | Record<string, boolean> // デザイン
 }
 // 画面表示引数
 defineProps<Props>();

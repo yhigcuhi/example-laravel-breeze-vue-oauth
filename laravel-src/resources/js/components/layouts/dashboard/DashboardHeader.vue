@@ -1,14 +1,13 @@
 <script setup lang="ts">
-/* import inertia*/
-import {Link} from '@inertiajs/vue3';
 /* import parts*/
 import {NavbarToggleButton, LogoutLink} from '@/components/elements';
+import HeaderSelectBox from './HeaderSelectBox.vue';
 /* import store*/
 import {useSideBar, useHeaderTitle} from '@/store';
 
 // スライドバーの開閉管理
-const {isShow, onClickToggle} = useSideBar();
-const {title} = useHeaderTitle();
+const sideBar = useSideBar();
+const headerTitle = useHeaderTitle();
 </script>
 <template>
     <!-- ダッシュボードヘッダー: ナビゲーションバー  -->
@@ -18,18 +17,18 @@ const {title} = useHeaderTitle();
             <!-- ナビゲーションの描画 (タイトルなど) -->
             <div class="navbar-wrapper">
                 <!-- サイドメニュー トグル -->
-                <div class="navbar-toggle" :class="{ toggled: isShow }">
-                    <NavbarToggleButton @click.native="onClickToggle">
-                    </NavbarToggleButton>
+                <div class="navbar-toggle" :class="{ toggled: sideBar.isShow }">
+                    <NavbarToggleButton @click.native="sideBar.onClickToggle" />
                 </div>
                 <!-- 画面名 -->
-                <span class="navbar-brand">{{ title }}</span>
-                <div class="mx-2">TODO:セレクトボックス</div>
+                <span class="mx-4 navbar-brand text-white">{{ headerTitle.title }}</span>
+                <div class="mx-4 "><HeaderSelectBox class="bg-white"/></div>
             </div>
             <!-- ナビゲーション メニュー（右メニュー）の描画 -->
             <div class="d-flex justify-content-end">
-                <LogoutLink class="me-4"/>
+                <LogoutLink class="me-4 text-white"/>
             </div>
         </div>
     </nav>
+    <div class="panel-header panel-header-sm"></div>
 </template>

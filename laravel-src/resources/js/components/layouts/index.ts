@@ -1,6 +1,6 @@
 // layout 集約ファイル
-import AuthLayout from './AuthLayout.vue';
-import DashboardLayout from './DashboardLayout.vue';
+import AuthLayout from './auth/AuthLayout.vue';
+import DashboardLayout from './dashboard/DashboardLayout.vue';
 
 // 出力するものだけ
 export {
