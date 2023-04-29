@@ -4,6 +4,8 @@ import {Link} from '@inertiajs/vue3';
 /* import 部品*/
 import {HomeLink} from '@/components/elements';
 import UserMenu from './UserMenu.vue';
+/* import 定数*/
+import MENUS from '@/constants/RouteMenu';
 
 /**
  * サイドバーメニュー縮小表示 可変ボタン
@@ -37,16 +39,10 @@ const minimizeSidebar = () => {
                 <!-- サイドバー ログインユーザー -->
                 <UserMenu />
                 <!-- サイドバー メニューの一覧 -->
-                <li :class="{active: $page.url.startsWith('/home')}">
-                    <Link class="nav-link sidebar-menu-item" :href="route('dashboard')">
-                        <i class="now-ui-icons design_app"></i>
-                        <p>Dashboard</p>
-                    </Link>
-                </li>
-                <li :class="{active: $page.url.startsWith('/todo')}">
-                    <Link class="nav-link sidebar-menu-item" :href="route('dashboard')">
-                        <i class="now-ui-icons design_app"></i>
-                        <p>TODO others</p>
+                <li v-for="(menu, index) in MENUS" :key="index" :class="{active: $page.url.startsWith(menu.prefixURL)}">
+                    <Link class="nav-link sidebar-menu-item" :href="route(menu.routeName)">
+                        <i v-if="menu.iconClass" :class="menu.iconClass"></i>
+                        <p>{{ menu.name }}</p>
                     </Link>
                 </li>
             </ul>

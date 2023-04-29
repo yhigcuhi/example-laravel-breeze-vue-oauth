@@ -49,6 +49,11 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     // ダッシュボード
     Route::get('/home', function () { return Inertia::render('authed/dashboard/Dashboard');})->name('dashboard');
+    Route::group(['prefix' => 'players', 'as' => 'players.'], function () {
+        // 選手一覧
+        Route::get('/', function () { return Inertia::render('authed/players/Players');})->name('list');
+        // 選手詳細
+    });
 });
 
 // ログイン済み の画面定義
